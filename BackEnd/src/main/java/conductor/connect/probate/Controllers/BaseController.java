@@ -3,16 +3,11 @@ package conductor.connect.probate.Controllers;
 import com.github.kiulian.downloader.YoutubeDownloader;
 import com.github.kiulian.downloader.YoutubeException;
 import com.github.kiulian.downloader.model.YoutubeVideo;
-import com.github.kiulian.downloader.model.formats.AudioFormat;
 import com.github.kiulian.downloader.model.formats.AudioVideoFormat;
 import com.github.kiulian.downloader.model.formats.Format;
-import com.github.kiulian.downloader.model.formats.VideoFormat;
-import conductor.connect.probate.DTO.AudioDTO;
 import conductor.connect.probate.DTO.BaseDTO;
-import conductor.connect.probate.Models.Audio;
 import conductor.connect.probate.Models.BaseModel;
 import conductor.connect.probate.Models.Request;
-import conductor.connect.probate.Models.Status;
 import conductor.connect.probate.Services.BaseService;
 import conductor.connect.probate.Services.RequestService;
 import org.slf4j.Logger;
@@ -23,7 +18,6 @@ import reactor.core.publisher.Mono;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public abstract class BaseController<D extends BaseDTO, M extends BaseModel> {
 
@@ -50,9 +44,9 @@ public abstract class BaseController<D extends BaseDTO, M extends BaseModel> {
         Request request = requestService.create();
         logger.info("Message Received By Controller !");
         dto.requestId = request.id;
+        baseService.create(dto, request);
         baseService.publishMessage(dto);
         logger.info("Message Published !");
-        baseService.create(dto, request);
         return Mono.just(dto);
     }
 

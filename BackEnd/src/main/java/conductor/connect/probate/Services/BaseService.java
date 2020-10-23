@@ -52,13 +52,15 @@ public abstract class BaseService<D extends BaseDTO, M extends BaseModel>  {
             e.printStackTrace();
         }
 
-        logger.info("Sending Message to RabbitMQ !" + T.getName());
+        logger.info("Sending Message to RabbitMQ !" + T.getName ());
         rabbitTemplate.convertAndSend("", QUEUE_NAME, serializedObject);
         logger.info("Message Published !" + T.getName());
     }
 
     public M create(D dto, Request request) {
-        return repository.save(associateRequestAndModel(dto, request));
+        M data = repository.save(associateRequestAndModel(dto, request));
+
+        return data;
     }
 
     public abstract M associateRequestAndModel(D dto, Request request);

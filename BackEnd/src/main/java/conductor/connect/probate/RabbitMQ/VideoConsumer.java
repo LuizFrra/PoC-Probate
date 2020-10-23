@@ -7,7 +7,6 @@ import com.github.kiulian.downloader.model.YoutubeVideo;
 import com.github.kiulian.downloader.model.formats.AudioVideoFormat;
 import com.github.kiulian.downloader.model.formats.Format;
 import conductor.connect.probate.DTO.VideoDTO;
-import conductor.connect.probate.Models.Audio;
 import conductor.connect.probate.Models.Status;
 import conductor.connect.probate.Models.Video;
 import conductor.connect.probate.Services.VideoService;
@@ -32,7 +31,7 @@ public class VideoConsumer {
         this.objectMapper = objectMapper;
     }
 
-    @RabbitListener(queues = {"youtube-video"})
+    @RabbitListener(queues = {"youtube-video"}, concurrency = "1")
     public void receivedMessageFromYouTubeVideo(String message) throws IOException, YoutubeException {
 
         System.out.println(message);

@@ -5,14 +5,10 @@ import com.github.kiulian.downloader.YoutubeDownloader;
 import com.github.kiulian.downloader.YoutubeException;
 import com.github.kiulian.downloader.model.YoutubeVideo;
 import com.github.kiulian.downloader.model.formats.AudioFormat;
-import com.github.kiulian.downloader.model.formats.AudioVideoFormat;
 import com.github.kiulian.downloader.model.formats.Format;
-import com.github.kiulian.downloader.model.formats.VideoFormat;
 import conductor.connect.probate.DTO.AudioDTO;
-import conductor.connect.probate.DTO.VideoDTO;
 import conductor.connect.probate.Models.Audio;
 import conductor.connect.probate.Models.Status;
-import conductor.connect.probate.Models.Video;
 import conductor.connect.probate.Services.AudioService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +31,7 @@ public class AudioConsumer {
     @Autowired
     public AudioService audioService;
 
-    @RabbitListener(queues = {"youtube-audio"})
+    @RabbitListener(queues = {"youtube-audio"}, concurrency = "1")
     public void receivedMessageFromYouTubeAudio(String message) throws IOException, YoutubeException {
 
         System.out.println(message);
