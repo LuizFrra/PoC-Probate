@@ -1,8 +1,18 @@
+security.basic.enable: false
+management.security.enabled: false
+
 server:
   port: 8888
+
+spring:
+  application:
+    name: myconfigserver
+  profiles:
+    active: git
   cloud:
     config:
       server:
         git:
+          default-label: main
           uri: https://github.com/LuizFrra/PoC-Probate
-          searchPaths:
+          searchPaths: configProperties
