@@ -1,2 +1,25 @@
 server:
   port: 9090
+
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://192.168.0.63:5432/rabbitt
+    username: postgres
+    password: pro
+  rabbitmq:
+    host: 192.168.0.63
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirm-type: correlated
+    publisher-returns:  true
+    listener:
+      simple:
+        prefetch: 1
+      direct:
+        prefetch: 1
