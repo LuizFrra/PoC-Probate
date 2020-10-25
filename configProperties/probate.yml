@@ -8,8 +8,8 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://0.0.0.0:5432/rabbitt
-    username: postgres
+    url: jdbc:postgresql://0.0.0.0:5432/poc
+    username: pro
     password: pro
   rabbitmq:
     host: 0.0.0.0
