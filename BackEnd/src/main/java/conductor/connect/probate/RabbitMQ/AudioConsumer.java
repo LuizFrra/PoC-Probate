@@ -12,6 +12,7 @@ import conductor.connect.probate.Models.Status;
 import conductor.connect.probate.Services.AudioService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -22,14 +23,35 @@ import java.util.Optional;
 @Component
 public class AudioConsumer {
 
-    private final ObjectMapper objectMapper;
+    private String pathToSave;
 
-    public AudioConsumer(ObjectMapper objectMapper) {
+    private ObjectMapper objectMapper;
+
+    private AudioService audioService;
+
+    private File outPutDir;
+
+    public AudioConsumer(@Value("${probate.youtube.path-save.windows}") String windowsPath,
+                         @Value("${probate.youtube.path-save.linux}") String linuxPath,
+                         ObjectMapper objectMapper,
+                         AudioService audioService
+    ) {
         this.objectMapper = objectMapper;
-    }
 
-    @Autowired
-    public AudioService audioService;
+        this.audioService = audioService;
+
+        String os = System.getProperty("os.name");
+
+        if(os.contains("Win")) {
+            pathToSave = windowsPath;
+            outPutDir = new File(pathToSave + "\\Audios");
+        } else {
+            pathToSave = linuxPath;
+            outPutDir = new File(pathToSave + "/Audios");
+        }
+
+        if(!outPutDir.exists()) outPutDir.mkdir();
+    }
 
     @RabbitListener(queues = {"youtube-audio"}, concurrency = "1")
     public void receivedMessageFromYouTubeAudio(String message) throws IOException, YoutubeException {
@@ -52,8 +74,6 @@ public class AudioConsumer {
         YoutubeVideo youtubeVideo = downloader.getVideo(audioId);
 
         List<AudioFormat> audioFormats = youtubeVideo.audioFormats();
-
-        File outPutDir = new File("L:\\Windows Folders\\Desktop\\PoC-Probate\\Audios");
 
         Format format = audioFormats.get(0);
 
