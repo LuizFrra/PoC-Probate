@@ -1,12 +1,14 @@
 package conductor.connect.probate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@Slf4j
 public class ProbateApplication {
 
 	public static void main(String[] args) {
@@ -21,7 +23,7 @@ public class ProbateApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return (args) -> {
-			System.out.println(System.getProperty("os.name"));
+			log.info("Running on " + System.getProperty("os.name"));
 		};
 	}
 
