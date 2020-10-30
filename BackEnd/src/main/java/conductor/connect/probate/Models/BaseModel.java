@@ -7,4 +7,8 @@ public class BaseModel {
     public Object getId() {
         return id;
     }
+
+    public String getPath() {
+        return "";
+    }
 }

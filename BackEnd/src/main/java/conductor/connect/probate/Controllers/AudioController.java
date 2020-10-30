@@ -13,5 +13,4 @@ public class AudioController extends BaseController<AudioDTO, Audio> {
     public AudioController(AudioService audioService, RequestService requestService) {
         super(audioService, AudioController.class, requestService);
     }
-
 }

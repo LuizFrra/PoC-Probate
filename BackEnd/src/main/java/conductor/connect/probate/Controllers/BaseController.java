@@ -33,11 +33,6 @@ public abstract class BaseController<D extends BaseDTO, M extends BaseModel> {
         this.requestService = requestService;
     }
 
-    @GetMapping("/{id}")
-    public Mono<String> getVideo(@PathVariable String id) {
-        return Mono.just(id);
-    }
-
     @PostMapping
     public Mono<D> downloadContent(@RequestBody D dto) {
         logger.info("Creating Request !");

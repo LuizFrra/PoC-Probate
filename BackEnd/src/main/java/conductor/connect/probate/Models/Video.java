@@ -32,4 +32,7 @@ public class Video extends BaseModel{
         this.id = url.split("=")[1];
     }
 
+    public String getPath() {
+        return this.path;
+    }
 }

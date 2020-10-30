@@ -2,9 +2,8 @@ package conductor.connect.probate.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import conductor.connect.probate.DTO.RequestDTO;
-import conductor.connect.probate.Models.Audio;
+import conductor.connect.probate.Models.BaseModel;
 import conductor.connect.probate.Models.Request;
-import conductor.connect.probate.Models.Video;
 import conductor.connect.probate.Repositories.RequestRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -41,8 +40,8 @@ public class RequestService {
         else
             return null;
 
-        Set<Video> videos = request.getVideos().stream().collect(Collectors.toSet());
-        Set<Audio> audios = request.getAudios().stream().collect(Collectors.toSet());
+        Set<BaseModel> videos = request.getVideos().stream().collect(Collectors.toSet());
+        Set<BaseModel> audios = request.getAudios().stream().collect(Collectors.toSet());
 
         RequestDTO requestDTO = new RequestDTO();
 

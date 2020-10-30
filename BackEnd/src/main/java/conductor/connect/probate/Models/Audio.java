@@ -32,4 +32,9 @@ public class Audio extends BaseModel {
         this.id = url.split("=")[1];
     }
 
+    @Override
+    public String getPath() {
+        return path;
+    }
+
 }
