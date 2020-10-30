@@ -7,12 +7,6 @@ probate:
       windows: L:\\Windows Folders\\Desktop\\PoC-Probate
       linux: /home
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
 spring:
   jpa:
     show-sql: true
