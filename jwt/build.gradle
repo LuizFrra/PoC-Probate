@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.auth0:java-jwt:3.10.3'

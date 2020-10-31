@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
@@ -29,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().csrf().disable()
                 .authorizeRequests().antMatchers(HttpMethod.POST, "/api/auth").permitAll()
                 .antMatchers("/free").permitAll()
+                .antMatchers("/user**").permitAll()
+                .antMatchers("/user/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilter(authenticationFilter())
                 .addFilter(validationFilter())
@@ -40,19 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return rawPassword.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                if(rawPassword.toString().compareTo(encodedPassword.toString()) == 0)
-                    return true;
-                return false;
-            }
-        };
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -61,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JWTAuthenticationFilter.setAuthenticationManager(authenticationManager());
         JWTAuthenticationFilter.setFilterProcessesUrl("/api/auth");
         JWTAuthenticationFilter.setPostOnly(true);
-        //JWTAuthenticationFilter.setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
+        JWTAuthenticationFilter.setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
         return JWTAuthenticationFilter;
     }
 
