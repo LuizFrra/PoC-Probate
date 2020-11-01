@@ -1,3 +1,6 @@
+server:
+  port: 8541
+
 spring:
   jpa:
     show-sql: true
