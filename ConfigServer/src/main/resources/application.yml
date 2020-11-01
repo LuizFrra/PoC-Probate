@@ -6,7 +6,7 @@ server:
 
 spring:
   application:
-    name: myconfigserver
+    name: myConfigServer
   profiles:
     active: git
   cloud:
@@ -16,3 +16,8 @@ spring:
           default-label: main
           uri: https://github.com/LuizFrra/PoC-Probate
           searchPaths: configProperties
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
