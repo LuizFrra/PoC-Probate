@@ -1,10 +1,10 @@
 spring:
   cloud:
-    config.uri: http://192.168.0.16:8888
+    config.uri: http://localhost:8888
     config:
       retry:
         max-interval: 10000
-        max-attempts: 10
+        max-attempts: 30
       fail-fast: true
   application:
     name: probate
