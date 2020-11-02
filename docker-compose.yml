@@ -19,11 +19,13 @@ services:
     environment:
       POSTGRES_PASSWORD: pro
       POSTGRES_USER: pro
-      POSTGRES_DB: poc
+      POSTGRES_DB: poc  
     ports:
       - 5432:5432
     depends_on:
       - config-server
+    volumes: 
+      - ./init_database.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
 
   config-server:
     build: ./ConfigServer/.
