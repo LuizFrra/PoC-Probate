@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+	compile group: 'org.springframework', name: 'spring-aop', version: '5.2.10.RELEASE'
+	compile group: 'org.springframework.retry', name: 'spring-retry', version: '1.2.5.RELEASE'
 	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.2.5.RELEASE'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-config-client', version: '2.2.5.RELEASE'

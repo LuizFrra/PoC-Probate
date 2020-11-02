@@ -1,2 +1,10 @@
-spring.cloud.config.uri: http://192.168.0.16:8888
-spring.application.name: jwt
+spring:
+  cloud:
+    config.uri: http://192.168.0.16:8888
+    config:
+      retry:
+        max-interval: 10000
+        max-attempts: 10
+      fail-fast: true
+  application:
+    name: jwt
