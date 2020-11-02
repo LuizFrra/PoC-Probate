@@ -1,0 +1,22 @@
+FROM openjdk:8-jdk-alpine
+
+WORKDIR /jwt-api-build
+
+COPY . /jwt-api-build
+
+RUN ls -al
+
+RUN chmod +x gradlew
+
+RUN ./gradlew build
+
+WORKDIR /jwt-api
+
+RUN cp /jwt-api-build/build/libs/*.jar /jwt-api/app.jar
+
+RUN rm -rf /jwt-api-build
+
+RUN ls -al
+
+ENTRYPOINT [ "java", "-jar", "/jwt-api/app.jar" ]
+

@@ -1,5 +1,6 @@
 version: "3.3"
 services:
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq-poc
@@ -11,6 +12,7 @@ services:
       - 15672:15672
     depends_on:
       - postgres-db
+
   postgres-db:
     image: postgres:13-alpine
     container_name: postgres-db-poc
@@ -22,9 +24,44 @@ services:
       - 5432:5432
     depends_on:
       - config-server
+
   config-server:
     build: ./ConfigServer/.
     image: srpoe/configserverpoc
     ports:
       - 8888:8888
+    depends_on: 
+      - server-registry
+    network_mode: "host"
+  
+  server-registry:
+    build: ./serverregistry/.
+    image: srpoe/serverregistrypoc
+    ports: 
+      - 8761:8761
+    network_mode: "host"
+  
+  jwt:
+    build: ./jwt/.
+    image: srpoe/jwtapipoc
+    ports: 
+      - 8541:8541
+    depends_on: 
+      - config-server
+      - server-registry
+      - postgres-db
+    network_mode: "host"
+  
+  probate:
+    build: ./BackEnd/.
+    image: srpoe/pocapiprobate
+    ports: 
+      - 9090:9090
+    depends_on: 
+      - config-server
+      - server-registry
+      - jwt
+      - postgres-db
+      - rabbitmq
+    network_mode: "host"
 

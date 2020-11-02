@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
 
         Optional<User> userOp = findUserByEmail(username);
 
-        if(userOp.isEmpty())
+        if(!userOp.isPresent())
             throw new UsernameNotFoundException("Email not Found.");
 
         User user = userOp.get();

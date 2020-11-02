@@ -1,6 +1,23 @@
 FROM openjdk:8-jdk-alpine
-WORKDIR /ConfigServer
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} /ConfigServer/app.jar
-EXPOSE 8888
-ENTRYPOINT ["java","-jar","app.jar"]
+
+WORKDIR /config-server-build
+
+COPY . /config-server-build
+
+RUN ls -al
+
+RUN chmod +x mvnw
+
+RUN ./mvnw dependency:go-offline
+
+RUN ./mvnw package
+
+WORKDIR /config-server
+
+RUN cp /config-server-build/target/*.jar /config-server/app.jar
+
+RUN rm -rf /config-server-build
+
+RUN ls -al
+
+ENTRYPOINT [ "java", "-jar", "/config-server/app.jar" ]

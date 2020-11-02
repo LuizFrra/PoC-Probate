@@ -1,0 +1,23 @@
+FROM openjdk:8-jdk-alpine
+
+WORKDIR /server-registry-build
+
+COPY . /server-registry-build
+
+RUN ls -al
+
+RUN chmod +x mvnw
+
+RUN ./mvnw dependency:go-offline
+
+RUN ./mvnw package
+
+WORKDIR /server-registry
+
+RUN cp /server-registry-build/target/*.jar /server-registry/app.jar
+
+RUN rm -rf /server-registry-build
+
+RUN ls -al
+
+ENTRYPOINT [ "java", "-jar", "/server-registry/app.jar" ]

@@ -1,6 +1,23 @@
 FROM openjdk:8-jdk-alpine
-WORKDIR /api
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} /api/app.jar
-EXPOSE 9090
-ENTRYPOINT ["java","-jar","app.jar"]
+
+WORKDIR /poc-api-build
+
+COPY . /poc-api-build
+
+RUN ls -al
+
+RUN chmod +x mvnw
+
+RUN ./mvnw dependency:go-offline
+
+RUN ./mvnw package
+
+WORKDIR /poc-api
+
+RUN cp /poc-api-build/target/*.jar /poc-api/app.jar
+
+RUN rm -rf /poc-api-build
+
+RUN ls -al
+
+ENTRYPOINT [ "java", "-jar", "/poc-api/app.jar" ]
