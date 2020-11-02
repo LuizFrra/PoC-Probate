@@ -8,7 +8,7 @@ spring:
     hibernate:
       ddl-auto: create
   datasource:
-    url: jdbc:postgresql://192.168.0.16:5432/auth
+    url: jdbc:postgresql://localhost:5432/auth
     username: pro
     password: pro
 
