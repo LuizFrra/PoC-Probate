@@ -1,0 +1,23 @@
+FROM openjdk:8-jdk-alpine
+
+WORKDIR /gateway-build
+
+COPY . /gateway-build
+
+RUN ls -al
+
+RUN chmod +x mvnw
+
+RUN ./mvnw dependency:go-offline
+
+RUN ./mvnw package
+
+WORKDIR /gateway
+
+RUN cp /gateway-build/target/*.jar /gateway/app.jar
+
+RUN rm -rf /gateway-build
+
+RUN ls -al
+
+ENTRYPOINT [ "java", "-jar", "/gateway/app.jar" ]

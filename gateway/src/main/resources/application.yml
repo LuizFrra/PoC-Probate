@@ -1,0 +1,14 @@
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: serverRegistry_route
+#          uri: http://192.168.0.18:8761/
+#          predicates:
+#            - Path=/serverregistry/**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      expose: "*"
