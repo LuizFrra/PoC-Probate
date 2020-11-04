@@ -34,11 +34,14 @@ services:
       - 8888:8888
     depends_on: 
       - server-registry
+      - gateway
     network_mode: "host"
   
   server-registry:
     build: ./serverregistry/.
     image: srpoe/serverregistrypoc
+    depends_on:
+      - gateway
     ports: 
       - 8761:8761
     network_mode: "host"
@@ -52,6 +55,7 @@ services:
       - config-server
       - server-registry
       - postgres-db
+      - gateway
     network_mode: "host"
   
   probate:
@@ -65,5 +69,14 @@ services:
       - jwt
       - postgres-db
       - rabbitmq
+      - gateway
     network_mode: "host"
+
+  gateway:
+    build: ./gateway/.
+    image: srpoe/gatewaypocapi
+    ports:
+      - 8080:8080
+    network_mode: "host"
+
 
