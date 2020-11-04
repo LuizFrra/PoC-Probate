@@ -16,8 +16,7 @@ public class GatewayApplication {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route(r -> r.path("/serverregistry/**", "/eureka/**")
-						.filters(f -> f.rewritePath("/serverregistry", ""))
+				.route(r -> r.path("/registrty/**")
 						.uri("http://192.168.0.18:8761/"))
 				.route(r -> r.path("/jwt/**")
 						.filters(f -> f.rewritePath("/jwt", ""))
