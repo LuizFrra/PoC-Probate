@@ -74,8 +74,6 @@ public class VideoConsumer {
 
         List<AudioVideoFormat> videoFormats = youtubeVideo.videoWithAudioFormats();
 
-        File outPutDir = new File(pathToSave + "\\Videos");
-
         Format format = videoFormats.get(0);
 
         System.out.println("Download Started !");
