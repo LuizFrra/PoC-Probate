@@ -17,15 +17,15 @@ public class GatewayApplication {
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route(r -> r.path("/registry/**")
-						.uri("http://localhost:8761/"))
+						.uri("http://192.168.0.18:8761/"))
 				.route(r -> r.path("/jwt/**")
 						.filters(f -> f.rewritePath("/jwt", ""))
-						.uri("http://localhost:8541/"))
+						.uri("http://192.168.0.18:8541/"))
 				.route(r -> r.path("/pocapi/**")
 						.filters(f -> f.rewritePath("/pocapi", ""))
-						.uri("http://localhost:9090/"))
+						.uri("http://192.168.0.18:9090/"))
 				.route(r -> r.path("/config/**")
-						.uri("http://localhost:8888/"))
+						.uri("http://192.168.0.18:8888/"))
 				.build();
 	}
 
